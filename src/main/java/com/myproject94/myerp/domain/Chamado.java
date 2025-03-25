@@ -8,6 +8,7 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -50,7 +51,10 @@ public class Chamado implements Serializable {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    public Chamado(Integer id, Prioridade prioridade, Status status, String titulo, String observacoes, Tecnico tecnico, Cliente cliente) {
+    @Column(precision = 10, scale = 2)
+    private BigDecimal valor;
+
+    public Chamado(Integer id, Prioridade prioridade, Status status, String titulo, String observacoes, Tecnico tecnico, Cliente cliente, BigDecimal valor) {
         this.id = id;
         this.prioridade = prioridade;
         this.status = status;
@@ -58,6 +62,7 @@ public class Chamado implements Serializable {
         this.observacoes = observacoes;
         this.tecnico = tecnico;
         this.cliente = cliente;
+        this.valor = valor;
     }
 
     @PrePersist

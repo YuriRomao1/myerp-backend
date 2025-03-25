@@ -3,6 +3,7 @@ package com.myproject94.myerp.resource;
 import com.myproject94.myerp.domain.Cliente;
 import com.myproject94.myerp.domain.dtos.ClienteDTO;
 import com.myproject94.myerp.service.ClienteService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/cliente")
+@Tag(name = "Cliente", description = "Controller para salvar e editar Clientes")
 public class ClienteResource {
 
     private final ClienteService service;

@@ -3,6 +3,7 @@ package com.myproject94.myerp.resource;
 import com.myproject94.myerp.domain.Tecnico;
 import com.myproject94.myerp.domain.dtos.TecnicoDTO;
 import com.myproject94.myerp.service.TecnicoService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/tecnicos")
+@Tag(name = "Tecnico", description = "Controller para salvar e editar dados funcionários")
 public class TecnicoResource {
 
 

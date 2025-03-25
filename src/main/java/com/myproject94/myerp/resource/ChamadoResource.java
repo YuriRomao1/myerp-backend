@@ -3,6 +3,9 @@ package com.myproject94.myerp.resource;
 import com.myproject94.myerp.domain.Chamado;
 import com.myproject94.myerp.domain.dtos.ChamadoDTO;
 import com.myproject94.myerp.service.ChamadoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -18,17 +21,23 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/chamados")
+@Tag(name = "Chamado", description = "Controlador para salvar e editar dados do chamado")
 public class ChamadoResource {
 
     private final ChamadoService service;
 
     @GetMapping(value = "/{id}")
+    @Operation(summary = "Busca Chamado por ID", description = "Método responsavel por buscar um chamado por id")
+    @ApiResponse(responseCode = "200", description = "Chamado encontrado com sucesso")
+    @ApiResponse(responseCode = "400", description = "Chamado não encontrado com sucesso")
     public ResponseEntity<ChamadoDTO> findById(@PathVariable Integer id){
         Chamado obj = service.findById(id);
         return ResponseEntity.ok().body(new ChamadoDTO(obj));
     }
 
     @GetMapping
+    @Operation(summary = "Buscar Chamados", description = "Método responsavel por buscar todos os chamado")
+    @ApiResponse(responseCode = "202", description = "Chamado encontrado com sucesso")
     public ResponseEntity<List<ChamadoDTO>>findAll(){
         List<Chamado> list = service.findAll();
         List<ChamadoDTO> listDTO = list.stream().map(ChamadoDTO::new).collect(Collectors.toList());
@@ -36,6 +45,8 @@ public class ChamadoResource {
     }
 
     @PostMapping
+    @Operation(summary = "Criar chamado", description = "Método responsavel por criar novos chamado")
+    @ApiResponse(responseCode = "201", description = "Chamado criado com sucesso")
     public ResponseEntity<ChamadoDTO> create(@Valid @RequestBody ChamadoDTO objDTO){
         Chamado obj = service.create(objDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -43,9 +54,10 @@ public class ChamadoResource {
     }
 
     @PutMapping(value = "/{id}")
+    @Operation(summary = "Atualizar chamado", description = "Método responsavel por atualizar novos chamado")
+    @ApiResponse(responseCode = "201", description = "Chamado encontrado com sucesso")
     public ResponseEntity<ChamadoDTO> update (@PathVariable Integer id, @RequestBody ChamadoDTO objDTO){
         Chamado newObj = service.update(id, objDTO);
         return ResponseEntity.ok().body(new ChamadoDTO(newObj));
     }
-
 }

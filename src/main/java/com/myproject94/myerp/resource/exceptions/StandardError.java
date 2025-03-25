@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class StandardError implements Serializable {
 
     @Serial
@@ -18,13 +19,5 @@ public class StandardError implements Serializable {
     private String error;
     private String message;
     private String path;
-
-    public StandardError(Long timestamp, Integer status, String error, String message, String path) {
-        this.timestamp = timestamp;
-        this.status = status;
-        this.error = error;
-        this.message = message;
-        this.path = path;
-    }
-
+    
 }

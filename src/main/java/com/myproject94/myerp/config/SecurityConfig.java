@@ -32,19 +32,20 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private static final String[] PUBLIC_MATCHERS = {"/h2-console/**"};
-
     private final Environment env;
     private final JWTUtil jwtUtil;
     private final UserDetailsService userDetailsService;
 
-    // 🔐 Define o AuthenticationManager
+    private static final String[] PUBLIC_MATCHERS = {"/h2-console/**"};
+
+
+    //  Define o AuthenticationManager
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
 
-    // 🔐 Define o AuthenticationProvider (login via UserDetailsService + BCrypt)
+    //  Define o AuthenticationProvider (login via UserDetailsService + BCrypt)
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -53,12 +54,12 @@ public class SecurityConfig {
         return provider;
     }
 
-    // 🔐 Define a chain de filtros de segurança
+    // Define a chain de filtros de segurança
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authManager) throws Exception {
 
         if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
-            http.headers(headers -> headers.disable());
+            http.headers(AbstractHttpConfigurer::disable);
         }
 
         http.csrf(AbstractHttpConfigurer::disable)
@@ -75,18 +76,18 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // 🔐 Configuração CORS global
+    // Configuração CORS global
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
         configuration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS"));
-        configuration.addAllowedOriginPattern("*"); // Para aceitar chamadas de qualquer frontend
+        configuration.addAllowedOriginPattern("*");
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 
-    // 🔐 Password Encoder (BCrypt)
+    // Password Encoder (BCrypt)
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();

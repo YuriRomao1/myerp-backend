@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -53,6 +54,8 @@ public class ChamadoDTO implements Serializable {
 
     private String nomeCliente;
 
+    private BigDecimal valor;
+
     public ChamadoDTO(Chamado obj) {
         this.id = obj.getId();
         this.dataAbertura = obj.getDataAbertura();
@@ -65,6 +68,6 @@ public class ChamadoDTO implements Serializable {
         this.cliente = obj.getCliente().getId();
         this.nomeTecnico = obj.getTecnico().getNome();
         this.nomeCliente = obj.getCliente().getNome();
+        this.valor = obj.getValor();
     }
-
 }
