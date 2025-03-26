@@ -36,8 +36,19 @@ public class SecurityConfig {
     private final JWTUtil jwtUtil;
     private final UserDetailsService userDetailsService;
 
-    private static final String[] PUBLIC_MATCHERS = {"/h2-console/**"};
-
+    private static final String[] PUBLIC_URLS = {
+            "/swagger-ui.html",
+            "/h2-console/**",
+            "/v2/api-docs",
+            "/v3/api-docs",
+            "/v3/api-docs/**",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui/**",
+            "/webjars/**"
+    };
 
     //  Define o AuthenticationManager
     @Bean
@@ -54,24 +65,53 @@ public class SecurityConfig {
         return provider;
     }
 
-    // Define a chain de filtros de segurança
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authManager) throws Exception {
-
+// Configuração condicional para perfil de teste
         if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
-            http.headers(AbstractHttpConfigurer::disable);
+            http.headers(headers -> headers
+                    .frameOptions(frameOptions -> frameOptions.disable())
+            );
         }
 
-        http.csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(PUBLIC_MATCHERS).permitAll()
-                        .anyRequest().authenticated()
+        http
+                // Desabilita CSRF
+                .csrf(AbstractHttpConfigurer::disable)
+
+                // Configuração de Headers para todos os perfis
+                .headers(headers -> headers
+                        .frameOptions(frameOptions -> frameOptions.disable()) // Desabilita X-Frame-Options
+                        .contentSecurityPolicy(csp -> csp
+                                .policyDirectives("frame-ancestors 'self'") // Política de segurança para frames
+                        )
                 )
+
+                // Configuração CORS
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+
+                // Gerenciamento de sessão sem estado
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+
+                // Autorização de requisições
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(PUBLIC_URLS).permitAll() // Libera URLs públicas
+                        .anyRequest().authenticated() // Demais rotas precisam de autenticação
+                )
+
+                // Provedor de autenticação
                 .authenticationProvider(authenticationProvider())
-                .addFilterBefore(new JWTAuthenticationFilter(authManager, jwtUtil), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new JWTAuthorizationFilter(authManager, jwtUtil, userDetailsService), UsernamePasswordAuthenticationFilter.class);
+
+                // Filtros de autenticação e autorização JWT
+                .addFilterBefore(
+                        new JWTAuthenticationFilter(authManager, jwtUtil),
+                        UsernamePasswordAuthenticationFilter.class
+                )
+                .addFilterBefore(
+                        new JWTAuthorizationFilter(authManager, jwtUtil, userDetailsService),
+                        UsernamePasswordAuthenticationFilter.class
+                );
 
         return http.build();
     }

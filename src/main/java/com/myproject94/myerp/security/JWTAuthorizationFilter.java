@@ -75,12 +75,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     private boolean isPublicEndpoint(String path) {
-        return path.startsWith("/swagger-ui/") ||
+        return path.equals("/auth/login") ||
+                path.startsWith("/h2-console/") ||
                 path.startsWith("/v3/api-docs") ||
-                path.startsWith("/swagger-resources") ||
-                path.equals("/swagger-ui.html") ||
-                path.startsWith("/h2-console") ||
-                path.equals("/auth/login") ||
-                path.equals("/usuarios/cadastro");
+                path.startsWith("/swagger-ui/") ||
+                path.startsWith("/swagger-resources");
     }
 }
