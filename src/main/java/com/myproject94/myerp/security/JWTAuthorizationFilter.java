@@ -22,8 +22,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     private final JWTUtil jwtUtil;
     private final UserDetailsService userDetailsService;
 
-    public JWTAuthorizationFilter(AuthenticationManager authenticationManager,
-                                  JWTUtil jwtUtil,
+    public JWTAuthorizationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil,
                                   UserDetailsService userDetailsService) {
         super(authenticationManager);
         this.jwtUtil = jwtUtil;
@@ -74,11 +73,29 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         return null;
     }
 
+//    private boolean isPublicEndpoint(String path) {
+//        return path.equals("/auth/login") ||
+//                path.equals("/swagger-ui.html") ||
+//                path.startsWith("/h2-console/") ||
+//                path.startsWith("/v3/api-docs") ||
+//                path.startsWith("/swagger-resources") ||
+//                path.startsWith("/webjars/") ||
+//                path.startsWith("/v2/api-docs") ||
+//                path.startsWith("/configuration/ui") ||
+//                path.startsWith("/configuration/security");
+//    }
+
     private boolean isPublicEndpoint(String path) {
-        return path.equals("/auth/login") ||
-                path.startsWith("/h2-console/") ||
-                path.startsWith("/v3/api-docs") ||
-                path.startsWith("/swagger-ui/") ||
-                path.startsWith("/swagger-resources");
+        // Se o contexto for "/myerp", remova-o:
+        String adjustedPath = path;
+        if (path.startsWith("/myerp")) {
+            adjustedPath = path.substring("/myerp".length());
+        }
+        return adjustedPath.equals("/auth/login") ||
+                adjustedPath.equals("/swagger-ui/index.html") ||
+                adjustedPath.startsWith("/swagger-ui/") ||
+                adjustedPath.startsWith("/h2-console/") ||
+                adjustedPath.startsWith("/v3/api-docs") ||
+                adjustedPath.startsWith("/swagger-resources");
     }
 }

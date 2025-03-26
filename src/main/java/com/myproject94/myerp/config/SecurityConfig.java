@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -65,22 +66,21 @@ public class SecurityConfig {
         return provider;
     }
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authManager) throws Exception {
-// Configuração condicional para perfil de teste
+    // Configuração condicional para perfil de teste
         if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
             http.headers(headers -> headers
-                    .frameOptions(frameOptions -> frameOptions.disable())
+                    .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)
             );
         }
 
-        http
-                // Desabilita CSRF
-                .csrf(AbstractHttpConfigurer::disable)
+        http.csrf(AbstractHttpConfigurer::disable)
 
                 // Configuração de Headers para todos os perfis
                 .headers(headers -> headers
-                        .frameOptions(frameOptions -> frameOptions.disable()) // Desabilita X-Frame-Options
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable) // Desabilita X-Frame-Options
                         .contentSecurityPolicy(csp -> csp
                                 .policyDirectives("frame-ancestors 'self'") // Política de segurança para frames
                         )
@@ -96,8 +96,10 @@ public class SecurityConfig {
 
                 // Autorização de requisições
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(PUBLIC_URLS).permitAll() // Libera URLs públicas
-                        .anyRequest().authenticated() // Demais rotas precisam de autenticação
+                                .requestMatchers(PUBLIC_URLS).permitAll()
+                                .requestMatchers("/swagger-ui/index.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()// Libera URLs públicas
+                                .anyRequest().authenticated()
+                         // Demais rotas precisam de autenticação
                 )
 
                 // Provedor de autenticação
