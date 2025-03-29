@@ -1,7 +1,7 @@
 package com.myproject94.myerp.domain.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.myproject94.myerp.domain.DespesaFixa;
+import com.myproject94.myerp.domain.Despesas;
 import com.myproject94.myerp.domain.enums.StatusDespesa;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DespesaFixaDTO {
+public class DespesasDTO {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -37,7 +37,7 @@ public class DespesaFixaDTO {
 
     private StatusDespesa status;
 
-    public DespesaFixaDTO(DespesaFixa despesa) {
+    public DespesasDTO(Despesas despesa) {
         this.id = despesa.getId();
         this.descricao = despesa.getDescricao();
         this.valor = despesa.getValor();

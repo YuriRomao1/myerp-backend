@@ -1,17 +1,16 @@
 package com.myproject94.myerp.service;
 
 import com.myproject94.myerp.domain.Chamado;
-import com.myproject94.myerp.domain.DespesaFixa;
+import com.myproject94.myerp.domain.Despesas;
 import com.myproject94.myerp.domain.dtos.FinanceiroGeralDTO;
 import com.myproject94.myerp.repositories.ChamadoRepository;
-import com.myproject94.myerp.repositories.DespesaFixaRepository;
+import com.myproject94.myerp.repositories.DespesasRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,7 +19,7 @@ public class FinanceiroAnaliseService {
 
     private ChamadoRepository chamadoRepository;
 
-    private DespesaFixaRepository despesaFixaRepository;
+    private DespesasRepository despesasRepository;
 
 
     public FinanceiroGeralDTO getOverviewByPeriod(LocalDate inicio, LocalDate fim) {
@@ -30,7 +29,7 @@ public class FinanceiroAnaliseService {
                 .collect(Collectors.toList());
 
         // Filtrar despesas fixas pelo período (por data de vencimento ou data de pagamento)
-        List<DespesaFixa> despesas = despesaFixaRepository.findAll().stream()
+        List<Despesas> despesas = despesasRepository.findAll().stream()
                 .filter(d -> !d.getDataVencimento().isBefore(inicio) && !d.getDataVencimento().isAfter(fim))
                 .collect(Collectors.toList());
 

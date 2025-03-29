@@ -1,8 +1,8 @@
 package com.myproject94.myerp.resource;
 
-import com.myproject94.myerp.domain.DespesaFixa;
-import com.myproject94.myerp.domain.dtos.DespesaFixaDTO;
-import com.myproject94.myerp.service.DespesaFixaService;
+import com.myproject94.myerp.domain.Despesas;
+import com.myproject94.myerp.domain.dtos.DespesasDTO;
+import com.myproject94.myerp.service.DespesasService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,47 +17,47 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RequestMapping("/despesas")
 @Tag(name = "Despesa", description = "Controller para salvar e editar dados das despesas fixa")
-public class DespesaFixaController {
+public class DespesasController {
 
-    private DespesaFixaService service;
+    private final DespesasService service;
 
     @GetMapping
-    public ResponseEntity<List<DespesaFixaDTO>> findAll() {
-        List<DespesaFixaDTO> list = service.findAll()
-                .stream().map(DespesaFixaDTO::new).collect(Collectors.toList());
+    public ResponseEntity<List<DespesasDTO>> findAll() {
+        List<DespesasDTO> list = service.findAll()
+                .stream().map(DespesasDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok(list);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DespesaFixaDTO> findById(@PathVariable Integer id) {
-        DespesaFixa despesa = service.findById(id);
-        return ResponseEntity.ok(new DespesaFixaDTO(despesa));
+    public ResponseEntity<DespesasDTO> findById(@PathVariable Integer id) {
+        Despesas despesa = service.findById(id);
+        return ResponseEntity.ok(new DespesasDTO(despesa));
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(@RequestBody DespesaFixaDTO dto) {
-        DespesaFixa despesa = new DespesaFixa();
+    public ResponseEntity<Void> create(@RequestBody DespesasDTO dto) {
+        Despesas despesa = new Despesas();
         despesa.setDescricao(dto.getDescricao());
         despesa.setValor(dto.getValor());
         despesa.setDataVencimento(dto.getDataVencimento());
         despesa.setDataPagamento(dto.getDataPagamento());
         despesa.setStatus(dto.getStatus());
-        DespesaFixa novaDespesa = service.create(despesa);
+        Despesas novaDespesa = service.create(despesa);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(novaDespesa.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DespesaFixaDTO> update(@PathVariable Integer id, @RequestBody DespesaFixaDTO dto) {
-        DespesaFixa despesa = new DespesaFixa();
+    public ResponseEntity<DespesasDTO> update(@PathVariable Integer id, @RequestBody DespesasDTO dto) {
+        Despesas despesa = new Despesas();
         despesa.setDescricao(dto.getDescricao());
         despesa.setValor(dto.getValor());
         despesa.setDataVencimento(dto.getDataVencimento());
         despesa.setDataPagamento(dto.getDataPagamento());
         despesa.setStatus(dto.getStatus());
-        DespesaFixa updated = service.update(id, despesa);
-        return ResponseEntity.ok(new DespesaFixaDTO(updated));
+        Despesas updated = service.update(id, despesa);
+        return ResponseEntity.ok(new DespesasDTO(updated));
     }
 
     @DeleteMapping("/{id}")

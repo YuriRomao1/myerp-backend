@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class DespesaFixa implements Serializable {
+public class Despesas implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -42,7 +42,7 @@ public class DespesaFixa implements Serializable {
     private StatusDespesa status;
 
 
-    public DespesaFixa(Integer id, String descricao, BigDecimal valor, LocalDate dataVencimento, StatusDespesa status) {
+    public Despesas(Integer id, String descricao, BigDecimal valor, LocalDate dataVencimento, StatusDespesa status) {
         this.id = id;
         this.descricao = descricao;
         this.valor = valor;

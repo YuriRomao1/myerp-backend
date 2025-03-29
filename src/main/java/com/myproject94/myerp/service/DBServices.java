@@ -2,7 +2,7 @@ package com.myproject94.myerp.service;
 
 import com.myproject94.myerp.domain.Chamado;
 import com.myproject94.myerp.domain.Cliente;
-import com.myproject94.myerp.domain.DespesaFixa;
+import com.myproject94.myerp.domain.Despesas;
 import com.myproject94.myerp.domain.Tecnico;
 
 import com.myproject94.myerp.domain.enums.Perfil;
@@ -31,7 +31,7 @@ public class DBServices {
 
     private final PessoaRepository pessoaRepository;
 
-    private final DespesaFixaRepository despesaRepository;
+    private final DespesasRepository despesaRepository;
 
     private final BCryptPasswordEncoder encoder;
 
@@ -59,10 +59,10 @@ public class DBServices {
         Chamado c6 = new Chamado(null, Prioridade.BAIXA, Status.ENCERRADO, "Chamado 7", "Teste chamado 6", tec1, cli5, BigDecimal.valueOf(1000.00));
 
 
-        DespesaFixa d1 = new DespesaFixa(null, "Conta de Luz", BigDecimal.valueOf(200.00), LocalDate.of(2025, 3, 15), StatusDespesa.PENDENTE);
-        DespesaFixa d2 = new DespesaFixa(null, "Conta de Luz", BigDecimal.valueOf(200.00), LocalDate.of(2025, 4, 15), StatusDespesa.PENDENTE);
-        DespesaFixa d3 = new DespesaFixa(null, "Conta de Agua", BigDecimal.valueOf(200.00), LocalDate.of(2025, 3, 14), StatusDespesa.PAGO);
-        DespesaFixa d4 = new DespesaFixa(null, "Conta de Agua", BigDecimal.valueOf(200.00), LocalDate.of(2025, 4, 14), StatusDespesa.PAGO);
+        Despesas d1 = new Despesas(null, "Conta de Luz", BigDecimal.valueOf(200.00), LocalDate.of(2025, 3, 15), StatusDespesa.PENDENTE);
+        Despesas d2 = new Despesas(null, "Conta de Luz", BigDecimal.valueOf(200.00), LocalDate.of(2025, 4, 15), StatusDespesa.PENDENTE);
+        Despesas d3 = new Despesas(null, "Conta de Agua", BigDecimal.valueOf(200.00), LocalDate.of(2025, 3, 14), StatusDespesa.PAGO);
+        Despesas d4 = new Despesas(null, "Conta de Agua", BigDecimal.valueOf(200.00), LocalDate.of(2025, 4, 14), StatusDespesa.PAGO);
 
 
 
