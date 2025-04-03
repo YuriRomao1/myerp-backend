@@ -66,7 +66,6 @@ public class SecurityConfig {
         return provider;
     }
 
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authManager) throws Exception {
     // Configuração condicional para perfil de teste

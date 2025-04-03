@@ -3,9 +3,7 @@ package com.myproject94.myerp.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.myproject94.myerp.domain.enums.Perfil;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
@@ -18,7 +16,8 @@ import java.util.stream.Collectors;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED) // OU SINGLE_TABLE se quiser tudo em uma tabela só
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @SuperBuilder
 @NoArgsConstructor
@@ -41,7 +40,7 @@ public abstract class Pessoa implements Serializable {
     protected String senha;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "PERFIS")
+    @CollectionTable(name = "Perfis")
     protected Set<Integer> perfis = new HashSet<>();
 
     @JsonFormat(pattern = "dd/MM/yyyy")

@@ -5,9 +5,7 @@ import com.myproject94.myerp.domain.dtos.TecnicoDTO;
 import com.myproject94.myerp.domain.enums.Perfil;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -17,8 +15,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Getter
+@Setter
 @Entity
-@Data
 @AllArgsConstructor
 @SuperBuilder
 @NoArgsConstructor

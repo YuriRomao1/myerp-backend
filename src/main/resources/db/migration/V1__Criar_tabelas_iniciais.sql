@@ -1,5 +1,5 @@
 -- Criação da tabela base para a hierarquia de Pessoa
-CREATE TABLE pessoa (
+CREATE TABLE Pessoa (
                         id INT AUTO_INCREMENT PRIMARY KEY,
                         nome VARCHAR(100) NOT NULL,
                         cpf VARCHAR(14) NOT NULL UNIQUE,
@@ -9,7 +9,7 @@ CREATE TABLE pessoa (
 );
 
 -- Tabela para armazenar os perfis associados a cada Pessoa
-CREATE TABLE perfil (
+CREATE TABLE Perfis (
                         pessoa_id INT NOT NULL,
                         perfis INT NOT NULL,
                         PRIMARY KEY (pessoa_id, perfis),
@@ -17,19 +17,19 @@ CREATE TABLE perfil (
 );
 
 -- Tabela Cliente (herda de Pessoa – estratégia JOINED)
-CREATE TABLE cliente (
+CREATE TABLE Cliente (
                          id INT PRIMARY KEY,
                          FOREIGN KEY (id) REFERENCES pessoa(id)
 );
 
 -- Tabela Técnico (herda de Pessoa – estratégia JOINED)
-CREATE TABLE tecnico (
+CREATE TABLE Tecnico (
                          id INT PRIMARY KEY,
                          FOREIGN KEY (id) REFERENCES pessoa(id)
 );
 
 -- Tabela Chamado
-CREATE TABLE chamado (
+CREATE TABLE Chamado (
                          id INT AUTO_INCREMENT PRIMARY KEY,
                          data_abertura DATE DEFAULT CURRENT_DATE,
                          data_fechamento DATE,
