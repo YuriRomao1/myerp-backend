@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/cliente")
-@Tag(name = "Cliente", description = "Controller para salvar e editar Clientes")
+@RequestMapping(value = "/clientes")
+@Tag(name = "Clientes", description = "Controller para salvar e editar Clientes")
 public class ClienteResource {
 
     private final ClienteService service;
