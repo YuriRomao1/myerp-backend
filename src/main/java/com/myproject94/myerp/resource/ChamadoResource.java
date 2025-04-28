@@ -27,17 +27,17 @@ public class ChamadoResource {
     private final ChamadoService service;
 
     @GetMapping(value = "/{id}")
-    @Operation(summary = "Busca Chamado por ID", description = "Método responsavel por buscar um chamado por id")
-    @ApiResponse(responseCode = "200", description = "Chamado encontrado com sucesso")
-    @ApiResponse(responseCode = "400", description = "Chamado não encontrado com sucesso")
+    @Operation(summary = "Busca CHAMADO por ID", description = "Método responsavel por buscar um chamado por id")
+    @ApiResponse(responseCode = "200", description = "CHAMADO encontrado com sucesso")
+    @ApiResponse(responseCode = "400", description = "CHAMADO não encontrado")
     public ResponseEntity<ChamadoDTO> findById(@PathVariable Integer id){
         Chamado obj = service.findById(id);
         return ResponseEntity.ok().body(new ChamadoDTO(obj));
     }
 
     @GetMapping
-    @Operation(summary = "Buscar Chamados", description = "Método responsavel por buscar todos os chamado")
-    @ApiResponse(responseCode = "202", description = "Chamado encontrado com sucesso")
+    @Operation(summary = "Buscar CHAMADOS", description = "Método responsavel por buscar todos os CHAMADO")
+    @ApiResponse(responseCode = "202", description = "CHAMADO encontrado com sucesso")
     public ResponseEntity<List<ChamadoDTO>>findAll(){
         List<Chamado> list = service.findAll();
         List<ChamadoDTO> listDTO = list.stream().map(ChamadoDTO::new).collect(Collectors.toList());
@@ -45,7 +45,7 @@ public class ChamadoResource {
     }
 
     @PostMapping
-    @Operation(summary = "Criar chamado", description = "Método responsavel por criar novos chamado")
+    @Operation(summary = "Criar CHAMADO", description = "Método responsavel por criar novos CHAMADOS")
     @ApiResponse(responseCode = "201", description = "Chamado criado com sucesso")
     public ResponseEntity<ChamadoDTO> create(@Valid @RequestBody ChamadoDTO objDTO){
         Chamado obj = service.create(objDTO);
@@ -54,7 +54,7 @@ public class ChamadoResource {
     }
 
     @PutMapping(value = "/{id}")
-    @Operation(summary = "Atualizar chamado", description = "Método responsavel por atualizar novos chamado")
+    @Operation(summary = "Atualizar CHAMADO", description = "Método responsavel por atualizar novos CHAMADOS")
     @ApiResponse(responseCode = "201", description = "Chamado encontrado com sucesso")
     public ResponseEntity<ChamadoDTO> update (@PathVariable Integer id, @RequestBody ChamadoDTO objDTO){
         Chamado newObj = service.update(id, objDTO);

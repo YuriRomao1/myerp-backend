@@ -20,7 +20,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ChamadoService {
 
-
     private final ChamadoRepository repository;
 
     private final TecnicoService tecnicoService;

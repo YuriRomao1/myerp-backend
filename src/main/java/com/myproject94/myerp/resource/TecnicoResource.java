@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @Tag(name = "Tecnico", description = "Controller para salvar e editar dados funcionários")
 public class TecnicoResource {
 
-
     private final TecnicoService service;
 
     @GetMapping(value = "/{id}")

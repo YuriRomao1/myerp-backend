@@ -16,13 +16,11 @@ import java.time.LocalDate;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/financeiro/analise")
-@Tag(name = "Analise Financeira", description = "Controller para analisar dados financeiro da aplicação")
+@Tag(name = "Analise Financeira", description = "Controlador para analisar dados financeiro da aplicação")
 public class FinanceiroGeralResource {
 
     private final FinanceiroAnaliseService service;
 
-
-    // Exemplo: análise por período, onde o usuário envia datas de início e fim
     @GetMapping
     public ResponseEntity<FinanceiroGeralDTO> getFinancialOverview(
             @RequestParam("inicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,

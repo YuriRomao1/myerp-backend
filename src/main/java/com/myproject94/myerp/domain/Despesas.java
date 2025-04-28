@@ -34,18 +34,7 @@ public class Despesas implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataVencimento;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate dataPagamento;
-
     @Enumerated(EnumType.STRING)
     private StatusDespesa status;
 
-
-    public Despesas(Integer id, String descricao, BigDecimal valor, LocalDate dataVencimento, StatusDespesa status) {
-        this.id = id;
-        this.descricao = descricao;
-        this.valor = valor;
-        this.dataVencimento = dataVencimento;
-        this.status = status;
-    }
 }

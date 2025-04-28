@@ -31,7 +31,6 @@ public class DespesasService {
         existing.setDescricao(updatedDespesa.getDescricao());
         existing.setValor(updatedDespesa.getValor());
         existing.setDataVencimento(updatedDespesa.getDataVencimento());
-        existing.setDataPagamento(updatedDespesa.getDataPagamento());
         existing.setStatus(updatedDespesa.getStatus());
         return repository.save(existing);
     }

@@ -32,9 +32,6 @@ public class DespesasDTO {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataVencimento;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate dataPagamento;
-
     private StatusDespesa status;
 
     public DespesasDTO(Despesas despesa) {
@@ -42,7 +39,6 @@ public class DespesasDTO {
         this.descricao = despesa.getDescricao();
         this.valor = despesa.getValor();
         this.dataVencimento = despesa.getDataVencimento();
-        this.dataPagamento = despesa.getDataPagamento();
         this.status = despesa.getStatus();
     }
 }

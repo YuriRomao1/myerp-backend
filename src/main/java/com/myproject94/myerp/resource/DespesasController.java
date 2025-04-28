@@ -36,13 +36,12 @@ public class DespesasController {
 
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody DespesasDTO dto) {
-        Despesas despesa = new Despesas();
-        despesa.setDescricao(dto.getDescricao());
-        despesa.setValor(dto.getValor());
-        despesa.setDataVencimento(dto.getDataVencimento());
-        despesa.setDataPagamento(dto.getDataPagamento());
-        despesa.setStatus(dto.getStatus());
-        Despesas novaDespesa = service.create(despesa);
+        Despesas despesas = new Despesas();
+        despesas.setDescricao(dto.getDescricao());
+        despesas.setValor(dto.getValor());
+        despesas.setDataVencimento(dto.getDataVencimento());
+        despesas.setStatus(dto.getStatus());
+        Despesas novaDespesa = service.create(despesas);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(novaDespesa.getId()).toUri();
         return ResponseEntity.created(uri).build();
@@ -50,13 +49,12 @@ public class DespesasController {
 
     @PutMapping("/{id}")
     public ResponseEntity<DespesasDTO> update(@PathVariable Integer id, @RequestBody DespesasDTO dto) {
-        Despesas despesa = new Despesas();
-        despesa.setDescricao(dto.getDescricao());
-        despesa.setValor(dto.getValor());
-        despesa.setDataVencimento(dto.getDataVencimento());
-        despesa.setDataPagamento(dto.getDataPagamento());
-        despesa.setStatus(dto.getStatus());
-        Despesas updated = service.update(id, despesa);
+        Despesas despesas = new Despesas();
+        despesas.setDescricao(dto.getDescricao());
+        despesas.setValor(dto.getValor());
+        despesas.setDataVencimento(dto.getDataVencimento());
+        despesas.setStatus(dto.getStatus());
+        Despesas updated = service.update(id, despesas);
         return ResponseEntity.ok(new DespesasDTO(updated));
     }
 

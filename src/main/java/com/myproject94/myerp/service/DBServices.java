@@ -31,7 +31,7 @@ public class DBServices {
 
     private final PessoaRepository pessoaRepository;
 
-    private final DespesasRepository despesaRepository;
+    private final DespesasRepository despesasRepository;
 
     private final BCryptPasswordEncoder encoder;
 
@@ -59,14 +59,16 @@ public class DBServices {
         Chamado c6 = new Chamado(null, Prioridade.BAIXA, Status.ENCERRADO, "Chamado 7", "Teste chamado 6", tec1, cli5, BigDecimal.valueOf(1000.00));
 
 
-        Despesas d1 = new Despesas(null, "Conta de Luz", BigDecimal.valueOf(200.00), LocalDate.of(2025, 3, 15), StatusDespesa.PENDENTE);
-        Despesas d2 = new Despesas(null, "Conta de Luz", BigDecimal.valueOf(200.00), LocalDate.of(2025, 4, 15), StatusDespesa.PENDENTE);
-        Despesas d3 = new Despesas(null, "Conta de Agua", BigDecimal.valueOf(200.00), LocalDate.of(2025, 3, 14), StatusDespesa.PAGO);
-        Despesas d4 = new Despesas(null, "Conta de Agua", BigDecimal.valueOf(200.00), LocalDate.of(2025, 4, 14), StatusDespesa.PAGO);
+        Despesas d1 = new Despesas(null, "Ajudante", BigDecimal.valueOf(200.00), LocalDate.of(2025, 3, 15), StatusDespesa.PENDENTE);
+        Despesas d2 = new Despesas(null, "uz", BigDecimal.valueOf(200.00), LocalDate.of(2025, 4, 15), StatusDespesa.PENDENTE);
+        Despesas d3 = new Despesas(null, "Agua", BigDecimal.valueOf(300.00), LocalDate.of(2025, 3, 14), StatusDespesa.PAGO);
+        Despesas d4 = new Despesas(null, "Agua", BigDecimal.valueOf(100.00), LocalDate.of(2025, 4, 14), StatusDespesa.PAGO);
+        Despesas d5 = new Despesas(null, "Telefone", BigDecimal.valueOf(200.00), LocalDate.of(2025, 4, 14), StatusDespesa.ATRASADO);
+        Despesas d6 = new Despesas(null, "Fornecedor", BigDecimal.valueOf(700.00), LocalDate.of(2025, 4, 14), StatusDespesa.ATRASADO);
 
-
-
+        
         pessoaRepository.saveAll(Arrays.asList(tec1, tec2, tec3, tec4, tec5, cli1, cli2, cli3, cli4, cli5));
         chamadoRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5, c6));
+        despesasRepository.saveAll(Arrays.asList(d1,d2,d3,d4,d5,d6));
     }
 }
