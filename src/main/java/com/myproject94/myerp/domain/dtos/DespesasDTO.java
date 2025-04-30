@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -17,7 +18,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DespesasDTO {
+public class DespesasDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -29,16 +30,18 @@ public class DespesasDTO {
 
     private BigDecimal valor;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "dd/MM/yyyy",
+            timezone = "UTC")
     private LocalDate dataVencimento;
 
     private StatusDespesa status;
 
-    public DespesasDTO(Despesas despesa) {
-        this.id = despesa.getId();
-        this.descricao = despesa.getDescricao();
-        this.valor = despesa.getValor();
-        this.dataVencimento = despesa.getDataVencimento();
-        this.status = despesa.getStatus();
+    public DespesasDTO(Despesas despesas) {
+        this.id = despesas.getId();
+        this.descricao = despesas.getDescricao();
+        this.valor = despesas.getValor();
+        this.dataVencimento = despesas.getDataVencimento();
+        this.status = despesas.getStatus();
     }
 }

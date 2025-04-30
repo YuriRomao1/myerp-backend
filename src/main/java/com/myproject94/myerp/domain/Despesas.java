@@ -31,7 +31,9 @@ public class Despesas implements Serializable {
     @Column(precision = 10, scale = 2)
     private BigDecimal valor;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "dd/MM/yyyy",
+            timezone = "UTC")
     private LocalDate dataVencimento;
 
     @Enumerated(EnumType.STRING)
