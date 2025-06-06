@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public enum Perfil {
 
     ADMIN(0, "ROLE_ADMIN"),
-    CLIENT(1, "ROLE_CLIENT"),
+    BASIC(1, "ROLE_BASIC"),
     TECNICO(2,"ROLE_TECNICO");
 
     private Integer codigo;

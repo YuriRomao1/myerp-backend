@@ -1,6 +1,8 @@
 package com.myproject94.myerp.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.myproject94.myerp.config.MultiFormatDateDeserializer;
 import com.myproject94.myerp.domain.enums.StatusDespesa;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -31,9 +33,7 @@ public class Despesas implements Serializable {
     @Column(precision = 10, scale = 2)
     private BigDecimal valor;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING,
-            pattern = "dd/MM/yyyy",
-            timezone = "UTC")
+    @JsonDeserialize(using = MultiFormatDateDeserializer.class)
     private LocalDate dataVencimento;
 
     @Enumerated(EnumType.STRING)

@@ -47,8 +47,10 @@ class ChamadoServiceTest {
 
     @BeforeEach
     void setup() {
-        mockTecnico = new Tecnico(1, "Tec", "000", "tec@mail.com", "pass");
-        mockCliente = new Cliente(2, "Cli", "111", "cli@mail.com", "pass");
+        mockTecnico = new Tecnico(1, "Richard Stallman", "903.347.070-56", "21 98888-3333", "Rua Compiladores, 50", LocalDate.of(1906, 12, 9), "stallman@mail.com", "senha123");
+
+
+        mockCliente = new Cliente(2,"Albert","11166189074","albert@mail.com","21 99999-0001","Rua das Ciências, 42 – Petrópolis, RJ", LocalDate.of(1879, 3, 14));
         dto = ChamadoDTO.builder()
                 .id(null)
                 .prioridade(Prioridade.ALTA.getCodigo())

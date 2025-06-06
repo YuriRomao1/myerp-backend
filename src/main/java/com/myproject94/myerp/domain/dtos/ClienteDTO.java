@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.myproject94.myerp.domain.Cliente;
 import com.myproject94.myerp.domain.enums.Perfil;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,8 +37,11 @@ public class ClienteDTO implements Serializable {
     @NotNull(message = "O campo EMAIL destacado é requerido")
     protected String email;
 
-    @NotNull(message = "O campo SENHA destacado é requerido")
-    protected String senha;
+    @Size(max = 15, message = "Telefone deve ter até 15 caracteres")
+    private String telefone;
+
+    @Size(max = 255, message = "Endereço deve ter até 255 caracteres")
+    private String endereco;
 
     protected Set<Integer> perfis = new HashSet<>();
 
@@ -49,10 +53,11 @@ public class ClienteDTO implements Serializable {
         this.nome = obj.getNome();
         this.cpf = obj.getCpf();
         this.email = obj.getEmail();
-        this.senha = obj.getSenha();;
+        this.telefone = obj.getTelefone();
+        this.endereco = obj.getEndereco();;
         this.perfis = obj.getPerfis().stream().map(Perfil::getCodigo).collect(Collectors.toSet());
         this.dataCriacao = obj.getDataCriacao();
-        addPerfil(Perfil.CLIENT);
+        addPerfil(Perfil.BASIC);
     }
 
     public Set<Perfil> getPerfis() {

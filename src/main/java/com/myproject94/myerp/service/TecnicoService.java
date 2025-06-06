@@ -1,19 +1,17 @@
 package com.myproject94.myerp.service;
 
-import com.myproject94.myerp.domain.Pessoa;
 import com.myproject94.myerp.domain.Tecnico;
 import com.myproject94.myerp.domain.dtos.TecnicoDTO;
-import com.myproject94.myerp.repositories.PessoaRepository;
 import com.myproject94.myerp.repositories.TecnicoRepository;
 import com.myproject94.myerp.service.exceptions.DataIntegrityViolationException;
 import com.myproject94.myerp.service.exceptions.ObjectNotFoundException;
-
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -21,26 +19,22 @@ import java.util.Optional;
 public class TecnicoService {
 
     private final TecnicoRepository repository;
-
-    private final PessoaRepository pessoaRepository;
-
     private final BCryptPasswordEncoder encoder;
 
     public Tecnico findById(Integer id) {
-        Optional<Tecnico> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id:" + id));
+        return repository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id:" + id));
     }
 
     public List<Tecnico> findAll() {
         return repository.findAll();
     }
 
-    public Tecnico create(TecnicoDTO objDTO) {
+    public Tecnico create(@Valid TecnicoDTO objDTO) {
         objDTO.setId(null);
         objDTO.setSenha(encoder.encode(objDTO.getSenha()));
         validaPorCpfEEmail(objDTO);
         Tecnico newObj = new Tecnico(objDTO);
-
         return repository.save(newObj);
     }
 
@@ -48,13 +42,13 @@ public class TecnicoService {
         objDTO.setId(id);
         Tecnico oldObj = findById(id);
 
-        if(!objDTO.getSenha().equals(oldObj.getSenha())) {
+        if (!objDTO.getSenha().equals(oldObj.getSenha())) {
             objDTO.setSenha(encoder.encode(objDTO.getSenha()));
         }
 
         validaPorCpfEEmail(objDTO);
-        oldObj = new Tecnico(objDTO);
-        return repository.save(oldObj);
+        Tecnico updated = new Tecnico(objDTO);
+        return repository.save(updated);
     }
 
     public void delete(Integer id) {
@@ -66,13 +60,13 @@ public class TecnicoService {
     }
 
     private void validaPorCpfEEmail(TecnicoDTO objDTO) {
-        Optional<Pessoa> obj = pessoaRepository.findByCpf(objDTO.getCpf());
-        if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {
+        Optional<Tecnico> obj = repository.findByCpf(objDTO.getCpf());
+        if (obj.isPresent() && !Objects.equals(obj.get().getId(), objDTO.getId())) {
             throw new DataIntegrityViolationException("CPF já cadastrado no sistema");
         }
 
-        obj = pessoaRepository.findByEmail(objDTO.getEmail());
-        if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {
+        obj = repository.findByEmail(objDTO.getEmail());
+        if (obj.isPresent() && !Objects.equals(obj.get().getId(), objDTO.getId())) {
             throw new DataIntegrityViolationException("Email já cadastrado no sistema");
         }
     }
