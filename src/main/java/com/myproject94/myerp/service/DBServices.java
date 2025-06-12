@@ -29,14 +29,14 @@ public class DBServices {
     private final BCryptPasswordEncoder encoder;
 
     public void instanciaDB() {
-        Tecnico tec1 = new Tecnico(null, "Valdir Cezar", "550.482.150-95", "21 98888-1111", "Rua Algoritmos, 100", LocalDate.of(1815, 12, 10),"valdir@mail.com", encoder.encode("123"));
-        Tecnico tec6 = new Tecnico(null, "Yuri Romao", "550.483.150-95", "21 98888-2222", "Rua Criptografia, 42",  LocalDate.of(1912, 12, 10), "yuri@mail.com", encoder.encode("123"));
+        Tecnico tec1 = new Tecnico(null, "Valdir Cezar", "550.482.150-95", "21 98888-1111", "Rua Algoritmos, 100", LocalDate.of(1815, 12, 10), "valdir@mail.com", encoder.encode("123"));
+        Tecnico tec6 = new Tecnico(null, "Yuri Romao", "550.483.150-95", "21 98888-2222", "Rua Criptografia, 42", LocalDate.of(1912, 12, 10), "yuri@mail.com", encoder.encode("123"));
         tec1.addPerfis(Perfil.ADMIN);
         tec6.addPerfis(Perfil.ADMIN);
-        Tecnico tec2 = new Tecnico(null, "Richard Stallman", "903.347.070-56","21 98888-3333", "Rua Compiladores, 50", LocalDate.of(1906, 12, 13), "stallman@mail.com", encoder.encode("123"));
-        Tecnico tec3 = new Tecnico(null, "Joao Silva", "903.347.070-40","21 98888-4444", "Rua Compiladores, 80", LocalDate.of(1909, 11, 14), "compiladores@mail.com", encoder.encode("123"));
-        Tecnico tec4 = new Tecnico(null, "Tim Berners-Lee", "162.720.120-39", "21 98888-2222", "Rua Criptografia, 42", LocalDate.of(1904, 06, 23),"lee@mail.com", encoder.encode("123"));
-        Tecnico tec5 = new Tecnico(null, "Linus Torvalds", "778.556.170-27", "21 98888-3333", "Rua Compiladores, 50", LocalDate.of(1906, 12, 11),"linus@mail.com", encoder.encode("123"));
+        Tecnico tec2 = new Tecnico(null, "Richard Stallman", "903.347.070-56", "21 98888-3333", "Rua Compiladores, 50", LocalDate.of(1906, 12, 13), "stallman@mail.com", encoder.encode("123"));
+        Tecnico tec3 = new Tecnico(null, "Joao Silva", "903.347.070-40", "21 98888-4444", "Rua Compiladores, 80", LocalDate.of(1909, 11, 14), "compiladores@mail.com", encoder.encode("123"));
+        Tecnico tec4 = new Tecnico(null, "Tim Berners-Lee", "162.720.120-39", "21 98888-2222", "Rua Criptografia, 42", LocalDate.of(1904, 06, 23), "lee@mail.com", encoder.encode("123"));
+        Tecnico tec5 = new Tecnico(null, "Linus Torvalds", "778.556.170-27", "21 98888-3333", "Rua Compiladores, 50", LocalDate.of(1906, 12, 11), "linus@mail.com", encoder.encode("123"));
 
         tecnicoRepository.saveAll(List.of(tec1, tec2, tec3, tec4, tec5, tec6));
 
@@ -54,8 +54,8 @@ public class DBServices {
         Chamado c4 = new Chamado(null, Prioridade.ALTA, Status.ABERTO, "Chamado 4", "Teste chamado 4", tec3, cli3, BigDecimal.valueOf(1000.00));
         Chamado c5 = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "Chamado 5", "Teste chamado 5", tec2, cli1, BigDecimal.valueOf(1000.00));
         Chamado c6 = new Chamado(null, Prioridade.BAIXA, Status.ENCERRADO, "Chamado 7", "Teste chamado 6", tec1, cli5, BigDecimal.valueOf(1000.00));
-        Chamado c7 = new Chamado( null, LocalDate.of(25,1,25), LocalDate.of(25,1,26),Prioridade.BAIXA, Status.ENCERRADO, "Chamado 7", "Teste chamado 7", tec1, cli5, BigDecimal.valueOf(1000.00));
-        Chamado c8 = new Chamado (null, Prioridade.MEDIA, Status.ANDAMENTO,"Chamado Abertura","Apenas abertura",tec1,cli1,BigDecimal.valueOf(100));
+        Chamado c7 = new Chamado(null, LocalDate.of(25, 1, 25), LocalDate.of(25, 1, 26), Prioridade.BAIXA, Status.ENCERRADO, "Chamado 7", "Teste chamado 7", tec1, cli5, BigDecimal.valueOf(1000.00));
+        Chamado c8 = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "Chamado Abertura", "Apenas abertura", tec1, cli1, BigDecimal.valueOf(100));
         Chamado c9 = new Chamado(null, Prioridade.ALTA, Status.ANDAMENTO, "Com Visita", "Visita agendada", tec1, cli2, BigDecimal.valueOf(1500.00), LocalDate.of(2025, 6, 10));
         Chamado c10 = new Chamado(null, Prioridade.BAIXA, Status.ENCERRADO, "Completo", "Chamado encerrado", tec2, cli3, BigDecimal.valueOf(2000.00), LocalDate.of(2025, 6, 10), LocalDate.of(2025, 6, 12));
 
@@ -84,41 +84,9 @@ public class DBServices {
         ChamadoEmpresa ce3 = new ChamadoEmpresa(null, Prioridade.BAIXA, Status.ENCERRADO, "Chamado Empresa 03", "Teste chamado empresa 3", tec3, emp3, BigDecimal.valueOf(20));
         ChamadoEmpresa ce4 = new ChamadoEmpresa(null, Prioridade.ALTA, Status.ANDAMENTO, "Chamado Empresa 04", "Teste chamado empresa 4", tec4, emp4, BigDecimal.valueOf(50));
         ChamadoEmpresa ce5 = new ChamadoEmpresa(null, Prioridade.ALTA, Status.ABERTO, "Chamado Empresa 05", "Teste chamado empresa 5 ", tec5, emp5, BigDecimal.valueOf(1000));
-        ChamadoEmpresa ce6 = new ChamadoEmpresa(
-                null,
-                Prioridade.BAIXA,
-                Status.ABERTO,
-                "Empresa Abertura",
-                "Somente abertura registrada",
-                tec1,
-                emp1,
-                BigDecimal.valueOf(300.00)
-        );
-
-        ChamadoEmpresa ce7 = new ChamadoEmpresa(
-                null,
-                Prioridade.MEDIA,
-                Status.ANDAMENTO,
-                "Empresa Visita",
-                "Abertura e visita marcada",
-                tec2,
-                emp2,
-                BigDecimal.valueOf(500.00),
-                LocalDate.of(2025, 7, 1)
-        );
-
-        ChamadoEmpresa ce8 = new ChamadoEmpresa(
-                null,
-                Prioridade.ALTA,
-                Status.ENCERRADO,
-                "Empresa Completo",
-                "Com abertura, visita e encerramento",
-                tec3,
-                emp3,
-                BigDecimal.valueOf(800.00),
-                LocalDate.of(2025, 6, 10),
-                LocalDate.of(2025, 6, 15)
-        );
+        ChamadoEmpresa ce6 = new ChamadoEmpresa(null, Prioridade.BAIXA, Status.ABERTO, "Empresa Abertura 06", "Somente abertura registrada 6", tec1, emp1, BigDecimal.valueOf(300.00));
+        ChamadoEmpresa ce7 = new ChamadoEmpresa(null, Prioridade.MEDIA, Status.ANDAMENTO, "Empresa Visita 07", "Abertura e visita marcada 7 ", tec2, emp2, BigDecimal.valueOf(500.00), LocalDate.of(2025, 7, 1));
+        ChamadoEmpresa ce8 = new ChamadoEmpresa(null, Prioridade.ALTA, Status.ENCERRADO, "Empresa Completo 08", "Com abertura, visita e encerramento 8", tec3, emp3, BigDecimal.valueOf(800.00), LocalDate.of(2025, 6, 10), LocalDate.of(2025, 6, 15));
 
         chamadoEmpresaRepository.saveAll(List.of(ce1, ce2, ce3, ce4, ce5, ce6, ce7, ce8));
     }

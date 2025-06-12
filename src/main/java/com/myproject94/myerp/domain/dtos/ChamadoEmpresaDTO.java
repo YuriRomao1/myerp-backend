@@ -2,6 +2,7 @@ package com.myproject94.myerp.domain.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.myproject94.myerp.domain.ChamadoEmpresa;
+import com.myproject94.myerp.domain.Empresa;
 import com.myproject94.myerp.domain.enums.Prioridade;
 import com.myproject94.myerp.domain.enums.Status;
 import jakarta.validation.constraints.NotNull;
@@ -58,6 +59,10 @@ public class ChamadoEmpresaDTO implements Serializable {
     @NotNull(message = "Empresa é obrigatória")
     private Integer empresaId;
 
+    private String nomeTecnico;
+
+    private String nomeEmpresa;
+
     private BigDecimal valor;
 
     public ChamadoEmpresaDTO(ChamadoEmpresa obj) {
@@ -72,5 +77,8 @@ public class ChamadoEmpresaDTO implements Serializable {
         this.tecnicoId = obj.getTecnico().getId();
         this.empresaId = obj.getEmpresa().getId();
         this.valor = obj.getValor();
+        this.nomeTecnico = obj.getTecnico().getNome();
+        Empresa emp = obj.getEmpresa();
+        this.nomeEmpresa = emp.getNomeFantasia() != null? emp.getNomeFantasia(): emp.getRazaoSocial();
     }
 }
